@@ -1,0 +1,85 @@
+<link rel="import" href="../polymer/polymer.html">
+<polymer-element name="core-router-router-helper-selectable" attributes="routerName  selectableElementId">
+<script>
+  Polymer("core-router-router-helper-selectable",{
+  /**
+   * Helper for SPA architecture
+   */
+  
+  /**
+   * Property contains Router name
+   * 
+   * @attribute routerName
+   * @type string
+   * @default null
+   */
+  routerName : null,
+  
+  /**
+   * Porperty contains our Router
+   * 
+   * @attribute router
+   * @type core-route
+   * @default null
+   */
+  router : null,
+    
+  /**
+   * Property contains our element selectable
+   * 
+   * @attribute selectable
+   * @type string
+   * @default null
+   */
+  selectableElementId : null,
+  
+  /**
+  * Property contains our element selectable
+   * 
+   * @attribute selectable
+   * @type polymerElement
+   * @default null
+   */
+  selectableElement : null,
+  
+  /**
+   * Initiate core-routerHelper
+   * 
+   * @method ready
+   */ 
+  ready : function(){
+    
+    var self = this;
+  
+    if(this.routerName === null){
+      console.log("Router helper [Selectable] : No router set !");
+      return false;
+    }
+    
+    this.router = document[this.routerName];
+    
+    
+    if(this.selectableElementId === null){
+      console.log("Router helper [Selectable] : No selectable element set ! ");
+      return false;
+    }
+    
+    this.selectableElement = document.querySelector(this.selectableElementId);
+    
+    if(this.router.defaultContainerHtmlElement === null){
+      console.log("Router helper [Selectable] : No container set ! ");
+      return false;
+    }
+  
+    var root = (this.router.root !== null) ? this.router.routes[Object.keys(this.router.routes)[0]] : this.router.root;
+    this.router.redirect(root, null, this.container);
+    
+    this.selectableElement.addEventListener("core-select", function(){
+      self.router.redirect(self.selectableElement.selected, null, self.router.defaultContainerHtmlElement);
+    });
+    
+  }
+    
+  });
+</script>
+</polymer-element>

@@ -1,0 +1,162 @@
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<!--
+
+@element core-router
+@status beta
+-->
+<link rel="import" href="../core-localstorage/core-localstorage.html">
+<polymer-element name="core-router" attributes="name root pageError routes defaultContainerId">
+<script>
+  Polymer('core-router', {
+    
+    /**
+     * name of Router.
+     *
+     * @attribute name
+     * @type string
+     * @default null
+     */
+    name : null,
+    
+    /**
+     * Contains Id and name of component page.
+     *
+     * @attribute routes
+     * @type object
+     * @default {}
+     */
+    routes : {},
+    
+    /**
+     * Property for define root path for application.
+     *
+     * @attribute root
+     * @type string
+     * @default ''
+     */
+    root : null,
+    
+    /**
+     * Property contains name of component to serve to display 404 error or others.
+     *
+     * @attribute pageError
+     * @type string
+     * @default ''
+     */
+    pageError : null,
+    
+    
+    /**
+     * Property contains id from display.
+     *
+     * @attribute defaultcontainer
+     * @type string
+     * @default null
+     */
+    defaultContainerId : null,
+    
+    /**
+     * Property contains htmlelement from display.
+     *
+     * @attribute defaultcontainer
+     * @type string
+     * @default null
+     */
+     defaultContainerHtmlElement : null,
+    
+   /**
+     * Property to share variables between pages.
+     *
+     * @attribute stack
+     * @type core-localstorage
+     * @default core-localstorage
+     */
+    stack : {},
+     
+     /**
+      * Return route by id
+      * @method getRoute
+      */
+     getRoute : function(id){
+       if(this.routes.hasOwnProperty(id)!= false){
+         return this.routes[id];
+       }else{
+         return false;
+       }
+     },
+     
+    /**
+     * Point of entry from routeur
+     * @method redirect
+     */
+    redirect : function(id, stack, container){
+      var element_name = this.getRoute(id);
+      
+      if(stack != null){
+        this.stack = stack;  
+      }
+
+      if(element_name != false){
+        
+        if(container != null){
+          this.render(element_name, container);
+        }else{
+          
+          if(this.container == null){
+            console.log("Router Error : container dor display is not defined !");
+            return false;
+          }
+          
+          this.render(element_name, this.container);
+        }
+      }else{
+       
+        if(this.pageError != null){
+          if(container != null){
+            this.render(this.pageError, container);
+          }else if(this.container != null){
+            this.render(this.pageError, this.container);
+          }else{
+            console.log("Router Error : Display not enable, define on router a container : %s", this.container);
+            return false;
+          }
+          
+        }else{
+          console.log("Router Error : Page error not found, define on router a pageError");
+          return false;
+        }
+      }
+    },
+    
+     ready: function() {
+      var routerName = (this.name === null) ? "Router" : this.name;
+      var containerName = (this.defaultContainerId === null) ? "container" : this.defaultContainerId;
+      this.defaultContainerHtmlElement = document.getElementById(this.defaultContainerId);
+      this.stack = document.createElement("core-localstorage");
+      document[routerName] = this;
+    },
+    
+    /**
+     * Display element 
+     * @method render
+     */
+    render : function(element_name, container){
+      
+      for(var i =0; i < container.children.length; i++){ // clear container
+        container.removeChild(container.children[i]);
+      }
+      
+      var element = document.createElement(element_name); // create elemen
+      container.appendChild(element); // add on container
+    }
+  });
+</script>
+</polymer-element>

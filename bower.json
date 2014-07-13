@@ -1,0 +1,27 @@
+{
+  "name": "core-router",
+  "version": "0.0.1",
+  "authors": [
+    "Josselin  CHEVALAY <josselin54.chevalay@gmail.com>"
+  ],
+  "description": "implements SPA arc on poymer platform",
+  "main": "index.html",
+  "keywords": [
+    "router",
+    "core",
+    "spa"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "core-localstorage": "Polymer/core-localstorage#~0.3.4"
+  }
+}

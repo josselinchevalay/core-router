@@ -31,8 +31,8 @@ declare router :
 
 declare own page (personal polymer component)
 ```html
-<link rel="import" href="../myproject/myFirstPage.html">
-<link rel="import" href="../myproject/mySecondPage.html">
+<link rel="import" href="../aston/page1.html">
+<link rel="import" href="../aston/page2.html">
 ```
 
 redirect 
@@ -63,8 +63,8 @@ declare router :
 
 declare own page (personal polymer component)
 ```html
-<link rel="import" href="../myproject/myFirstPage.html">
-<link rel="import" href="../myproject/mySecondPage.html">
+<link rel="import" href="../aston/page1.html">
+<link rel="import" href="../aston/page2.html">
 ```
 
 the redirection is automatic ! 

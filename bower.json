@@ -9,6 +9,7 @@
   "keywords": [
     "router",
     "core",
+    "polymer",
     "spa"
   ],
   "license": "MIT",
@@ -23,5 +24,6 @@
   ],
   "dependencies": {
     "core-localstorage": "Polymer/core-localstorage#~0.3.4"
-  }
+  },
+  "homepage": "https://github.com/josselinchevalay/core-router"
 }
